@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.IO;
 
@@ -12,33 +7,32 @@ namespace FileTypeSpecify
 {
     public partial class SpecifyFileTypeForm : Form
     {
-
         // 処理対象ファイル情報
         List<FileInfo> files = new List<FileInfo>();
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpecifyFileTypeForm"/> class.
+        /// </summary>
         public SpecifyFileTypeForm()
         {
             InitializeComponent();
         }
 
-
         /// <summary>
         /// ドラッグ発生時処理（まだドロップされていない）。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">イベント呼び出し元オブジェクト</param>
+        /// <param name="e">e</param>
         private void FileTypeSpecify_DragEnter(object sender, DragEventArgs e)
         {
             CheckDraggedFiles(e);
         }
 
-
         /// <summary>
         /// ドラッグされたものがファイルかどうかを判定する。
         /// フォルダなどが混入していた場合は無視する。
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">e</param>
         private void CheckDraggedFiles(DragEventArgs e)
         {
             string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -57,11 +51,10 @@ namespace FileTypeSpecify
             }
         }
 
-
         /// <summary>
         /// ドラッグ＆ドロップされたファイル情報を表示する。
         /// </summary>
-        /// <param name="e"></param>
+        /// <param name="e">e</param>
         private void ProcessDraggedFiles(DragEventArgs e)
         {
             // ドロップされたものがファイルである場合のみ処理実施
@@ -90,25 +83,23 @@ namespace FileTypeSpecify
         /// <summary>
         /// フォームロード時処理。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">イベント呼び出し元オブジェクト</param>
+        /// <param name="e">e</param>
         private void FileTypeSpecify_Load(object sender, EventArgs e)
         {
             // フォームをドラッグ＆ドロップ可能に設定する。
             this.AllowDrop = true;
         }
 
-
         /// <summary>
         /// ドラッグ＆ドロップ発生時処理。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">イベント呼び出し元オブジェクト</param>
+        /// <param name="e">e</param>
         private void FileTypeSpecify_DragDrop(object sender, DragEventArgs e)
         {
             ProcessDraggedFiles(e);
         }
-
 
         /// <summary>
         /// ファイル名を指定すると、実際に先頭を読み取ってファイル形式を判定する。
@@ -155,7 +146,7 @@ namespace FileTypeSpecify
                     }
                 }
             }
-            catch (IOException ex)
+            catch (IOException)
             {
                 // ファイルアクセスエラーの場合
                 result = "Error";
@@ -163,14 +154,11 @@ namespace FileTypeSpecify
             return result;
         }
 
-
-
-
         /// <summary>
         /// 閉じるボタン押下時処理。
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">イベント呼び出し元オブジェクト</param>
+        /// <param name="e">e</param>
         private void buttonClose_Click(object sender, EventArgs e)
         {
             this.Close();
